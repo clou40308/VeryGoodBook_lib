@@ -1,0 +1,1 @@
+SELECT id, email, phone, password, name, birthday, gender, address, subscribed, discount from customers where id='A123456141' and name ='JOHN';
