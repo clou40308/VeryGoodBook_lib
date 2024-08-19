@@ -32,6 +32,10 @@ class CustomersDAO {
 			try (ResultSet rs = pstmt.executeQuery();// 4.執行指令
 			) {
 				while (rs.next()) { // 5.讀取rs
+					String theId = rs.getString("id");
+					if(!theId.equals(id)) {
+						throw new LoginFailedException("登入失敗，帳號不正確");
+					}
 					int discount = rs.getInt("discount");
 					if (discount > 0) { // 折扣>0
 //						VIP vip =new VIP();
@@ -41,10 +45,6 @@ class CustomersDAO {
 						((VIP) c).setDiscount(discount);
 					} else {// 否則
 						c = new Customer();// 建立一般Customer物件
-					}
-					String theId = rs.getString("id");
-					if(!theId.equals(id)) {
-						throw new LoginFailedException("登入失敗，帳號不正確");
 					}
 					c.setId(theId);
 					c.setEmail(rs.getString("email"));
