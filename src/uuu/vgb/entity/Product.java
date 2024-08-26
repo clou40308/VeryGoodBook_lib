@@ -116,9 +116,14 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName()+"產品編號:" + id + "\n 書籍名稱:" + name + "\n 價格:" + unitPrice + "\n 庫存:" + stock + "\n photoUrl="
-				+ photoUrl + "\n 類別:" + category + "\n 日期:" + releaseDate + "\n 內容:" + description
-				+ "]";
+		return 
+				this.getClass().getSimpleName()
+				+ "[\n產品編號=" + id + ", 名稱=" + name 
+				+ ",\n 定價=" + unitPrice + ", 庫存=" + stock + ", 分類=" + category 
+				+ ",\n 圖片=" + photoUrl 
+				+ ",\n 上架日=" + releaseDate 
+				+ ",\n 說明=" + description 
+				+ "\n]";
 	}
 
 	
