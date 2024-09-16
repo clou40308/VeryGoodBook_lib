@@ -22,3 +22,5 @@ SELECT id, name, unit_price, stock, photo_url, category, release_date, descripti
 SELECT id, name, unit_price, stock, photo_url, category, release_date, description, discount FROM products
     ORDER BY rand() limit 5;
 
+ 
+SELECT id, name, unit_price, stock, photo_url, category, release_date, description, discount FROM products WHERE id = 1;
