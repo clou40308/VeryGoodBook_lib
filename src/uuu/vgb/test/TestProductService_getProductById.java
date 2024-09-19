@@ -13,7 +13,7 @@ public class TestProductService_getProductById {
 		ProductService pService = new ProductService();
 		
 		try {
-			Product  p =pService.getProductById("2");
+			Product  p =pService.getProductById("6");
 			System.out.println(p);
 		} catch (VGBException e) {
 			Logger.getLogger("").log(Level.SEVERE, e.getMessage(),e); 

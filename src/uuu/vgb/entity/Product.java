@@ -1,6 +1,8 @@
 package uuu.vgb.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Product {
 	private int id; // PKey,AUTO-INCREMENT
@@ -11,7 +13,24 @@ public class Product {
 	private String category; // 書籍/文具, required
 	private LocalDate releaseDate;// required
 	private String description = "";// optional 0~250個字元
+	
+	private List<Cpu> cpuList = new ArrayList<>();
 
+	
+	public List<Cpu> getCpuList() {
+		return cpuList; //不應直接回傳正本
+	}
+
+	//取代集合屬性的setter: add,(update,remove用不到)
+	public void add(Cpu cpu){
+		cpuList.add(cpu);
+	}
+	//集合屬性不可直接set
+//	public void setCpuList(List<Cpu> cpuList) {
+//		this.cpuList = cpuList;
+//	}
+
+	
 	public Product() {// 最重要,符合Java BEAN
 
 	}
@@ -123,6 +142,7 @@ public class Product {
 				+ ",\n 圖片=" + photoUrl 
 				+ ",\n 上架日=" + releaseDate 
 				+ ",\n 說明=" + description 
+				+ ",\n CPU清單=" + cpuList
 				+ "\n]";
 	}
 

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import uuu.vgb.entity.Cpu;
 import uuu.vgb.entity.Product;
 import uuu.vgb.entity.SpecialOffer;
 import uuu.vgb.exception.VGBException;
@@ -164,9 +165,18 @@ class ProductsDAO {
 		return list;
 	}
 	private static final String SELECT_PRODUCT_BY_ID =
-			"SELECT id, name, unit_price, stock, photo_url, category, release_date, description, discount "
-					+"  FROM products "
-					+ "  WHERE id = ?"; 
+			"SELECT id, name, unit_price, products.stock, products.photo_url, category, "+ 
+			" products.release_date, description, discount, "+
+		    " product_id, cpu_name, product_cpu.release_date AS cpu_release_date, "+
+		    " product_cpu.photo_url  AS cpu_photo, "+
+		    " product_cpu.stock AS cpu_stock "+
+			" FROM products "+ 
+			" LEFT JOIN product_cpu ON products.id = product_cpu.product_id "+
+		    " WHERE id=? "; 
+			
+//			"SELECT id, name, unit_price, stock, photo_url, category, release_date, description, discount "
+//					+"  FROM products "
+//					+ "  WHERE id = ?"; 
 	Product selectProductById(String id) throws VGBException {
 		Product p = null;
 		try (Connection connection = MySQLConnection.getConnection(); // 1,2. 取得連線
@@ -191,6 +201,14 @@ class ProductsDAO {
 					p.setCategory(rs.getString("category"));
 					p.setReleaseDate(rs.getString("release_date"));
 					p.setDescription(rs.getString("description"));
+					
+					String cpuName = rs.getString("cpu_name");
+					if(cpuName!=null){
+						Cpu cpu = new Cpu();
+						cpu.setCpuName(cpuName);
+						cpu.setStock(rs.getInt("cpu_stock"));
+						cpu.setPhotoUrl(rs.getString("cpu_photo"));
+					}
 				}
 			}
 		} catch (SQLException e) {
