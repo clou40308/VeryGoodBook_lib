@@ -187,22 +187,25 @@ class ProductsDAO {
 			try (ResultSet rs = pstmt.executeQuery();// 4.執行指令
 			) {
 				while (rs.next()) {
-					int discount = rs.getInt("discount");
-					if (discount > 0) {
-						p = new SpecialOffer();
-						((SpecialOffer) p).setDiscount(discount);
-					} else {// 否則
-						p = new Product();
+						if(p==null) {
+								int discount = rs.getInt("discount");
+						if (discount > 0) {
+							p = new SpecialOffer();
+							((SpecialOffer) p).setDiscount(discount);
+						} else {// 否則
+							p = new Product();
+						}
+						p.setId(rs.getInt("id"));
+						p.setName(rs.getString("name"));
+						p.setUnitPrice(rs.getDouble("unit_price"));
+						p.setStock(rs.getInt("stock"));
+						p.setPhotoUrl(rs.getString("photo_url"));
+						p.setCategory(rs.getString("category"));
+						p.setReleaseDate(rs.getString("release_date"));
+						p.setDescription(rs.getString("description"));
 					}
-					p.setId(rs.getInt("id"));
-					p.setName(rs.getString("name"));
-					p.setUnitPrice(rs.getDouble("unit_price"));
-					p.setStock(rs.getInt("stock"));
-					p.setPhotoUrl(rs.getString("photo_url"));
-					p.setCategory(rs.getString("category"));
-					p.setReleaseDate(rs.getString("release_date"));
-					p.setDescription(rs.getString("description"));
-					
+				
+					//讀取cpu資料
 					String cpuName = rs.getString("cpu_name");
 					if(cpuName!=null){
 						Cpu cpu = new Cpu();
@@ -210,6 +213,7 @@ class ProductsDAO {
 						cpu.setReleaseDate(LocalDate.parse(rs.getString("cpu_release_date")));
 						cpu.setPhotoUrl(rs.getString("cpu_photo"));
 						cpu.setStock(rs.getInt("cpu_stock"));
+						
 						p.add(cpu);
 					}
 				}

@@ -81,6 +81,14 @@ public class Product {
 	}
 
 	public int getStock() {
+		if(cpuList != null && cpuList.size()>0) {
+			int  sum = 0;
+			for ( int i = 0 ; i < cpuList.size() ; i++ ){
+				Cpu cpu = cpuList.get(i);
+				sum += cpu.getStock();
+			}
+			return sum;
+		}
 		return stock;
 	}
 
