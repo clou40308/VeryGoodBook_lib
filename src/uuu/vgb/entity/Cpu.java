@@ -2,6 +2,8 @@ package uuu.vgb.entity;
 
 import java.time.LocalDate;
 
+import uuu.vgb.exception.VGBDataInvalidException;
+
 public class Cpu {
 
 	private String cpuName; // 必要
@@ -17,7 +19,11 @@ public class Cpu {
 	}
 
 	public void setCpuName(String cpuName) {
-		this.cpuName = cpuName;
+		if(cpuName !=null && (cpuName=cpuName.trim()).length()>0) {
+			this.cpuName = cpuName;
+		}else {
+			throw new VGBDataInvalidException("CPU名稱必須有值");
+		}
 	}
 
 	public int getStock() {

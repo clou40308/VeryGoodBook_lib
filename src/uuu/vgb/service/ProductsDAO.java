@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -206,8 +207,10 @@ class ProductsDAO {
 					if(cpuName!=null){
 						Cpu cpu = new Cpu();
 						cpu.setCpuName(cpuName);
-						cpu.setStock(rs.getInt("cpu_stock"));
+						cpu.setReleaseDate(LocalDate.parse(rs.getString("cpu_release_date")));
 						cpu.setPhotoUrl(rs.getString("cpu_photo"));
+						cpu.setStock(rs.getInt("cpu_stock"));
+						p.add(cpu);
 					}
 				}
 			}
