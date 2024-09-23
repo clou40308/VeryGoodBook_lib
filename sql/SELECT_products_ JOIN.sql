@@ -38,8 +38,5 @@ SELECT id, name,  IFNULL(SUM(product_cpu.stock),products.stock) AS total_stock,
     WHERE id = 1
     GROUP BY id; 
 
-
-
-
 SELECT @@GLOBAL.sql_mode, @@SESSION.sql_mode; 
 SET SESSION sql_mode= 'ONLY_FULL_GROUP_BY, STRICT_TRANS_TABLES, NO_ZERO_IN_DATE, NO_ZERO_DATE , ERROR_FOR_DIVISION_BY_ZERO, NO_AUTO_CREATE_USER, and NO_ENGINE_SUBSTITUTION.';

@@ -3,6 +3,7 @@ package uuu.vgb.service;
 import java.util.List;
 
 import uuu.vgb.entity.Product;
+import uuu.vgb.entity.Size;
 import uuu.vgb.exception.VGBException;
 
 public class ProductService {
@@ -35,5 +36,12 @@ public class ProductService {
 			throw new IllegalArgumentException("[用id查詢產品]id不得為null或空字串");
 		}
 		return dao.selectProductById(id);
+	}
+	
+	public List<Size> getProductSizeByIdAndCpuName(String productId,String cpuName) throws VGBException{
+		if (productId == null || productId.length() == 0) {
+			throw new IllegalArgumentException("查詢[指定產品-尺寸]的sizeList時，productId必須要有值");
+		}
+		return dao.selectProductSizeByIdAndCpuName(productId,cpuName);
 	}
 } 

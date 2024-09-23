@@ -10,6 +10,7 @@ import java.util.List;
 
 import uuu.vgb.entity.Cpu;
 import uuu.vgb.entity.Product;
+import uuu.vgb.entity.Size;
 import uuu.vgb.entity.SpecialOffer;
 import uuu.vgb.exception.VGBException;
 
@@ -222,5 +223,44 @@ class ProductsDAO {
 			throw new VGBException("[用id查詢產品]失敗", e);
 		}
 		return p;
+	}
+	
+	private static final String SELECT_PRODUCT_SIZE_BY_ID_AND_CPUNAME =
+			"SELECT product_id, cpu_name, size_name, "
+			+ "	product_cpu_size.stock, "
+			+ " product_cpu_size.unit_price, "
+			+ " product_cpu_size.unit_price * (100-products.discount) / 100 AS price, "
+			+ " ordinal "
+			+ "	FROM product_cpu_size "
+			+ " JOIN products ON product_cpu_size.product_id = products.id "
+			+ "	WHERE product_id =? AND cpu_name=? "
+			+ "	ORDER BY ordinal ";
+	List<Size> selectProductSizeByIdAndCpuName(String productId,String cpuName) throws VGBException{
+		List<Size> list = new ArrayList<>();
+		
+		try (Connection connection = MySQLConnection.getConnection(); // 1,2. 取得連線
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_PRODUCT_SIZE_BY_ID_AND_CPUNAME);// 3.準備指令
+		) {
+			// 3.1 傳入?的值
+			pstmt.setString(1, productId);
+			pstmt.setString(2, cpuName);
+			try (ResultSet rs = pstmt.executeQuery();// 4.執行指令
+			) {
+				while (rs.next()) {
+					Size size = new Size();
+					size.setProductId(rs.getInt("product_id"));
+					size.setCpuName(rs.getString("cpu_name"));
+					size.setSizeName(rs.getString("size_name"));
+					size.setStock(rs.getInt("stock"));
+					size.setUnitPrice(rs.getDouble("unit_price"));
+					size.setPrice(rs.getDouble("price"));
+					size.setOrdinal(rs.getInt("ordinal"));
+					list.add(size);
+				}
+			}
+		} catch (SQLException e) {
+			throw new VGBException("查詢[指定產品-尺寸]的sizeList失敗!", e);
+		}
+		return list;
 	}
 }

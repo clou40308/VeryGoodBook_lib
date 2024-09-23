@@ -49,6 +49,15 @@ public class SpecialOffer extends Product {
 		return super.getUnitPrice() * (100 - discount) / 100;
 	}
 
+	/**
+	 * 查詢定價
+	 * @return
+	 */
+	public double getListPrice() {
+		return super.getUnitPrice();
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "[\n" + super.toString() + "\n 折扣: " + discount + "%off 即為" + getDiscountString() + "\n 售價為: "
