@@ -167,14 +167,29 @@ class ProductsDAO {
 		return list;
 	}
 	private static final String SELECT_PRODUCT_BY_ID =
-			"SELECT id, name, unit_price, products.stock, products.photo_url, category, "+ 
-			" products.release_date, description, discount, "+
-		    " product_id, cpu_name, product_cpu.release_date AS cpu_release_date, "+
-		    " product_cpu.photo_url  AS cpu_photo, "+
-		    " product_cpu.stock AS cpu_stock "+
-			" FROM products "+ 
-			" LEFT JOIN product_cpu ON products.id = product_cpu.product_id "+
-		    " WHERE id=? "; 
+			" SELECT id, name, products.unit_price, IFNULL(SUM(product_cpu_size.stock),products.stock) AS stock, products.photo_url, category, products.release_date, "
+			+ "	description, discount, "
+			+ "	product_cpu.product_id, product_cpu.cpu_name, "
+			+ " product_cpu.release_date AS cpu_release_date,product_cpu.photo_url  AS cpu_photo, "
+			+ "	IFNULL(SUM(product_cpu_size.stock),product_cpu.stock) AS cpu_stock, "
+			+ " product_cpu.ordinal, "
+			+ " COUNT(size_name) AS size_count , GROUP_CONCAT(size_name ORDER BY product_cpu_size.ordinal ) "
+			+ " FROM products "
+			+ "	LEFT JOIN product_cpu ON products.id=product_cpu.product_id "
+			+ " LEFT JOIN product_cpu_size ON products.id = product_cpu_size.product_id "
+			+ "	AND (product_cpu.cpu_name = product_cpu_size.cpu_name "
+			+ "	OR product_cpu.cpu_name IS NULL) "
+			+ "	WHERE id = ? "
+			+ " GROUP BY id,product_cpu.cpu_name";
+	
+//			"SELECT id, name, unit_price, products.stock, products.photo_url, category, "+ 
+//			" products.release_date, description, discount, "+
+//		    " product_id, cpu_name, product_cpu.release_date AS cpu_release_date, "+
+//		    " product_cpu.photo_url  AS cpu_photo, "+
+//		    " product_cpu.stock AS cpu_stock "+
+//			" FROM products "+ 
+//			" LEFT JOIN product_cpu ON products.id = product_cpu.product_id "+
+//		    " WHERE id=? "; 
 			
 //			"SELECT id, name, unit_price, stock, photo_url, category, release_date, description, discount "
 //					+"  FROM products "
@@ -204,6 +219,7 @@ class ProductsDAO {
 						p.setCategory(rs.getString("category"));
 						p.setReleaseDate(rs.getString("release_date"));
 						p.setDescription(rs.getString("description"));
+						p.setSizeCount(rs.getInt("size_count"));
 					}
 				
 					//讀取cpu資料

@@ -13,7 +13,7 @@ public class Product {
 	private String category; // 書籍/文具, required
 	private LocalDate releaseDate;// required
 	private String description = "";// optional 0~250個字元
-	
+	private int sizeCount ;
 	private List<Cpu> cpuList = new ArrayList<>();
 
 	
@@ -139,6 +139,15 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	
+	public int getSizeCount() {
+		return sizeCount;
+	}
+
+	public void setSizeCount(int sizeCount) {
+		this.sizeCount = sizeCount;
 	}
 
 	@Override
