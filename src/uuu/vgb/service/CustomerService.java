@@ -24,4 +24,9 @@ public class CustomerService {
 		if(c==null) throw new IllegalArgumentException("註冊會員時客戶物件不得為null");
 		dao.insert(c);
 	}
+	
+	public void update(Customer c) throws VGBException{
+		if(c==null) throw new IllegalArgumentException("更新會員時客戶物件不得為null");
+		dao.update(c);
+	}
 }

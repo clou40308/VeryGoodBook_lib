@@ -182,9 +182,11 @@ public class Customer {
 	 * 
 	 * @param birthday
 	 */
+	
+	public static final int MIN_AGE = 12;
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
-		if (birthday == null || getAge() < 12) {
+		if (birthday == null || getAge() < MIN_AGE) {
 			System.err.printf("生日日期%s不正確，必須年滿12歲\n ", birthday);
 			this.birthday = null;
 		}
@@ -198,11 +200,11 @@ public class Customer {
 	public static final char FEMALE = 'F';
 	public static final char OTHERS = 'O';
 	public void setGender(char gender) {
-		if (gender == 'M' || gender == 'F' || gender == 'O') {
+		if (gender == MALE || gender == FEMALE || gender == OTHERS ) {
 			this.gender = gender;
 		} else {
 			//System.err.println("必須選擇正確的性別選項: M|F|O");//
-			String msg = String.format("必須選擇正確的性別選項: M|F|O");
+			String msg = String.format("必須選擇正確的性別選項: %s|%s|%s\n", MALE, FEMALE, OTHERS);
 			throw new VGBDataInvalidException(msg);
 		}
 	}
@@ -227,8 +229,10 @@ public class Customer {
 		return password;
 	}
 
+	public static final int MIN_PWD_LENGTH = 6;
+	public static final int MAX_PWD_LENGTH = 20;
 	public void setPassword(String password) {
-		if (password.length() >= 6 && password.length() <= 20) {
+		if (password.length() >= MIN_PWD_LENGTH && password.length() <= MAX_PWD_LENGTH) {
 			this.password = password;
 		} else {
 			//System.err.println("密碼長度不正確，必須6~20個字元");
