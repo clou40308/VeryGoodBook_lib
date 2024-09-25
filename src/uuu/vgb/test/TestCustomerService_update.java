@@ -24,8 +24,7 @@ public class TestCustomerService_update {
 			Customer c = service.login(id, password);
 			System.out.println(c);
 			
-			c.setName("周作軒");
-			c.setAddress("1234");
+			c.setName("周軒");
 			service.update(c);
 			System.out.println("修改成功:");
 			System.out.println(c);
