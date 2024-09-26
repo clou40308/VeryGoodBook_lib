@@ -30,6 +30,19 @@ public class Product {
 //		this.cpuList = cpuList;
 //	}
 
+	public Cpu findCpu(String Cpuname) {
+		Cpu theCpu =null ;
+		if( cpuList.size()>0 &&  Cpuname!=null) {
+			for(int i=0; i<cpuList.size();i++) {
+				Cpu cpu = cpuList.get(i);
+				if(cpu!=null && cpu.getCpuName().equals(Cpuname)) {
+					theCpu = cpu;
+					break;
+				}
+			}
+		}
+		return  theCpu;
+	}
 	
 	public Product() {// 最重要,符合Java BEAN
 
@@ -148,6 +161,33 @@ public class Product {
 
 	public void setSizeCount(int sizeCount) {
 		this.sizeCount = sizeCount;
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Product other = (Product) obj;
+		if (id != other.id) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override

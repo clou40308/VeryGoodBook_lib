@@ -71,7 +71,7 @@ class CustomersDAO {
 			+ " (id, email, phone, password, name, birthday, gender, address, subscribed) "
 			+ "	VALUES (?,?,?,?,?,?,?  ,?,?)";
 
-	public void insert(Customer c) throws VGBException {
+	void insert(Customer c) throws VGBException {
 
 		try (Connection connection = MySQLConnection.getConnection(); // 1,2. 取得連線
 				PreparedStatement pstmt = connection.prepareStatement(INSERT_CUSTOMER);// 3.建立指令，會發生SQL Injection
@@ -109,7 +109,7 @@ class CustomersDAO {
 			" UPDATE customers "
 			+ " SET email=?, phone=?, password=?, name=?, birthday=?, gender=?, address=?, subscribed=? "
 			+ "	WHERE id=? ";
-	public void update(Customer c)  throws VGBException{
+	void update(Customer c)  throws VGBException{
 		try (Connection connection = MySQLConnection.getConnection(); // 1,2. 取得連線
 				PreparedStatement pstmt = connection.prepareStatement(UPDATE_CUSTOMER);// 3.建立指令，會發生SQL Injection
 		) {

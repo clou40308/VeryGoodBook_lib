@@ -6,7 +6,7 @@ import uuu.vgb.exception.VGBDataInvalidException;
 
 public class Cpu {
 
-	private String cpuName; // 必要
+	private String cpuName; // 必要,PKey
 
 	private int stock; // 必要
 
