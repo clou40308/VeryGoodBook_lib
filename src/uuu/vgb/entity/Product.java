@@ -2,6 +2,8 @@ package uuu.vgb.entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Product {
@@ -18,7 +20,9 @@ public class Product {
 
 	
 	public List<Cpu> getCpuList() {
-		return cpuList; //不應直接回傳正本
+		//return cpuList; //不應直接回傳正本
+		return new ArrayList<>(cpuList); //應return 複本
+		//return Collections.unmodifiableList(cpuList);//或return 不可變更的整本
 	}
 
 	//取代集合屬性的setter: add,(update,remove用不到)

@@ -2,6 +2,7 @@ package uuu.vgb.entity;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -48,8 +49,16 @@ public class ShoppingCart {
 	}
 	
 	//取代 cart屬性的getter的方法:
-	
 	//用[source] -> [delegate methods]
+	public void update(CartItem item, int value) {
+		Integer preQty = cart.get(item);
+		if(preQty!=null) cart.put(item, value);
+	}
+
+	public Integer remove(CartItem item) {
+		return cart.remove(item);
+	}
+
 	public int size() { //共N項
 		return cart.size();
 	}
@@ -63,7 +72,8 @@ public class ShoppingCart {
 	}
 
 	public Set<CartItem> getCartItemsSet() {
-		return cart.keySet();//集合不得為傳正本 TODO:改成回傳副本
+		//集合不得回傳正本(刪除集合元素時，可能發生java.util.concurrentmodificationexception)
+		return new HashSet<>(cart.keySet());//改成回傳副本
 	}
 
 	//自訂getter (依據商業邏輯)
