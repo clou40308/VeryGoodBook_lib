@@ -4,6 +4,7 @@ import java.util.List;
 
 import uuu.vgb.entity.Product;
 import uuu.vgb.entity.Size;
+import uuu.vgb.exception.VGBDataInvalidException;
 import uuu.vgb.exception.VGBException;
 
 public class ProductService {
@@ -43,5 +44,39 @@ public class ProductService {
 			throw new IllegalArgumentException("查詢[指定產品-尺寸]的sizeList時，productId必須要有值");
 		}
 		return dao.selectProductSizeByIdAndCpuName(productId,cpuName);
+	}
+	
+	public Size getTheSize(String productId,String cpuName,String sizeName)throws VGBException{
+		if(productId == null || productId.length()==0) {
+			throw new IllegalArgumentException("查詢[指定產品-CPU-尺寸]時，productId必須要有值");
+		}
+		
+		if(sizeName == null || sizeName.length()==0) {
+			throw new IllegalArgumentException("查詢[指定產品-CPU-尺寸]時，sizeName必須要有值");
+		}
+		
+		if(cpuName==null) {
+			cpuName="";
+		}
+		
+		Size theSize =null;
+		List<Size> list =this.getProductSizeByIdAndCpuName(productId,cpuName);
+		
+		if(list !=null &&list.size()>0) {
+			for(int i = 0; i< list.size();i++) {
+				Size size = list.get(i);
+				if(sizeName.equals(size.getSizeName())) {
+					theSize = size;
+					break;
+				}
+			}
+		}
+		
+		if(theSize == null) {
+			String errMsg= String.format("找不到指定的規格: %s-%s-%s ",productId,cpuName,sizeName);
+			throw new VGBDataInvalidException(errMsg);
+		}
+		
+		return theSize;
 	}
 } 

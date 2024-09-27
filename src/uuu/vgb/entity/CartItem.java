@@ -5,6 +5,16 @@ public class CartItem {
 	private Cpu theCpu; // Pkey
 	private Size theSize; // Pkey
 
+	private boolean checked = true;
+	
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
 	public Product getTheProduct() {
 		return theProduct;
 	}
