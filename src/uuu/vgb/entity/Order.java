@@ -8,18 +8,18 @@ import java.util.Set;
 public class Order {// 網路交易憑證
 	private int id;// Pkey,Auto-increment
 	private Customer member; // 必要
-	private LocalDate creatdDate;// 必要
+	private LocalDate createdDate;// 必要
 	private LocalTime createdTime;// 必要
 	private int status;	// 0:新訂單,1:已轉帳,2:已付款,3:已出貨,4:已到店,5:已簽收送達,6:已完成
 						//10:取消, 11:退貨, 12:確定退貨,13:
 
 	private ShippingType shippingType; // 必要
 	private String shippingNote;// 非必要
-	private double shippingfee;// 必要
+	private double shippingFee;// 必要
 
 	private PaymentType paymentType; // 必要
 	private String paymentNote;// 非必要
-	private double paymentfee;// 必要
+	private double paymentFee;// 必要
 
 	private String recipientName; // 必要
 	private String recipientEmail; // 必要
@@ -65,7 +65,7 @@ public class Order {// 網路交易憑證
 //			return totalAmount;
 //		}
 		
-		return totalAmount + shippingfee + paymentfee;
+		return totalAmount + shippingFee + paymentFee;
 	}
 
 	// orderItemSet's setters :add,(update,remove 這裡不做)
@@ -106,11 +106,11 @@ public class Order {// 網路交易憑證
 	}
 
 	public LocalDate getCreatdDate() {
-		return creatdDate;
+		return createdDate;
 	}
 
-	public void setCreatdDate(LocalDate creatdDate) {
-		this.creatdDate = creatdDate;
+	public void setCreatdDate(LocalDate createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public LocalTime getCreatedTime() {
@@ -145,12 +145,12 @@ public class Order {// 網路交易憑證
 		this.shippingNote = shippingNote;
 	}
 
-	public double getShippingfee() {
-		return shippingfee;
+	public double getShippingFee() {
+		return shippingFee;
 	}
 
-	public void setShippingfee(double shippingfee) {
-		this.shippingfee = shippingfee;
+	public void setShippingFee(double shippingFee) {
+		this.shippingFee = shippingFee;
 	}
 
 	public PaymentType getPaymentType() {
@@ -169,12 +169,12 @@ public class Order {// 網路交易憑證
 		this.paymentNote = paymentNote;
 	}
 
-	public double getPaymentfee() {
-		return paymentfee;
+	public double getPaymenFee() {
+		return paymentFee;
 	}
 
-	public void setPaymentfee(double paymentfee) {
-		this.paymentfee = paymentfee;
+	public void setPaymentfee(double paymentFee) {
+		this.paymentFee = paymentFee;
 	}
 
 	public String getRecipientName() {
@@ -212,10 +212,10 @@ public class Order {// 網路交易憑證
 	@Override
 	public String toString() {
 		return "Order [訂單編號=" + id + ", 訂購人=" + member.getName() 
-				+ ", 訂購日期時間=" + creatdDate + ", " + createdTime 
+				+ ", 訂購日期時間=" + createdDate + ", " + createdTime 
 				+ ", 處理狀態=" + status 
-				+ ",\n 貨運方式/手續費/Note=" + shippingType.name() + "/" + shippingfee + "元,"+ shippingNote 
-				+ ",\n 付款方式/手續費/Note=" + paymentType.name() + "/" + paymentfee  + "元,"+ paymentNote
+				+ ",\n 貨運方式/手續費/Note=" + shippingType.name() + "/" + shippingFee + "元,"+ shippingNote 
+				+ ",\n 付款方式/手續費/Note=" + paymentType.name() + "/" + paymentFee  + "元,"+ paymentNote
 				+ ",\n 收件人=" + recipientName + "," + recipientEmail + "," + recipientPhone 
 				+ ",\n 收件地址=" + shippingAddress
 				+ ",\n訂單明細=" + orderItemSet 

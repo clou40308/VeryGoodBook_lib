@@ -114,7 +114,7 @@ public class TestOrder {
 			order.setCreatedTime(LocalTime.now());
 			
 			order.setShippingType(shType);
-			order.setShippingfee(shType.getFee());
+			order.setShippingFee(shType.getFee());
 
 			order.setPaymentType(pType);
 			order.setPaymentfee(pType.getFee());
