@@ -105,11 +105,11 @@ public class Order {// 網路交易憑證
 		this.member = member;
 	}
 
-	public LocalDate getCreatdDate() {
+	public LocalDate getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatdDate(LocalDate createdDate) {
+	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -169,11 +169,11 @@ public class Order {// 網路交易憑證
 		this.paymentNote = paymentNote;
 	}
 
-	public double getPaymenFee() {
+	public double getPaymentFee() {
 		return paymentFee;
 	}
 
-	public void setPaymentfee(double paymentFee) {
+	public void setPaymentFee(double paymentFee) {
 		this.paymentFee = paymentFee;
 	}
 

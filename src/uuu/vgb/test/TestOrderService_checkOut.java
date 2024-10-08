@@ -17,9 +17,10 @@ import uuu.vgb.entity.Size;
 import uuu.vgb.exception.VGBDataInvalidException;
 import uuu.vgb.exception.VGBException;
 import uuu.vgb.service.CustomerService;
+import uuu.vgb.service.OrderService;
 import uuu.vgb.service.ProductService;
 
-public class TestOrder {
+public class TestOrderService_checkOut {
 
 	public static void main(String[] args) {
 		CustomerService cService = new CustomerService();
@@ -125,8 +126,14 @@ public class TestOrder {
 			order.setShippingAddress(shippingAdress);
 			order.add(cart);
 			
-			//oService.checkOut(order);
+			System.out.println("結帳前:"+order.getId());
+			
+			OrderService oService =new OrderService();
+			oService.checkOut(order);
+			
+			System.out.println("結帳後");
 			System.out.println(order);
+			
 		} catch(VGBDataInvalidException e){
 			System.err.println(e);
 		} catch (VGBException e) {
